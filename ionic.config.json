@@ -1,0 +1,7 @@
+{
+  "name": "TomTom-Scenery",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
