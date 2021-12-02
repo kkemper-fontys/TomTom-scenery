@@ -1,0 +1,80 @@
+{
+      "type": "POI",
+      "id": "g6JpZK81MjgwMDkwMDEyMDM1NDahY6NOTEShdqdVbmlmaWVk",
+      "score": 2.5744826794,
+      "dist": 374.12853984775006,
+      "info": "search:ta:528009001203546-NL",
+      "poi": {
+        "name": "Friet Hein Eek",
+        "phone": "+31 40 400 9005",
+        "categorySet": [
+          {
+            "id": 7315147
+          }
+        ],
+        "url": "https://pietheineek.nl/friet",
+        "categories": [
+          "cafeterias",
+          "restaurant"
+        ],
+        "classifications": [
+          {
+            "code": "RESTAURANT",
+            "names": [
+              {
+                "nameLocale": "en-US",
+                "name": "cafeterias"
+              },
+              {
+                "nameLocale": "en-US",
+                "name": "restaurant"
+              }
+            ]
+          }
+        ]
+      },
+      "address": {
+        "streetNumber": "30",
+        "streetName": "Halvemaanstraat",
+        "municipality": "Eindhoven",
+        "countrySubdivision": "Noord-Brabant",
+        "postalCode": "5651",
+        "extendedPostalCode": "5651 BP",
+        "countryCode": "NL",
+        "country": "Nederland",
+        "countryCodeISO3": "NLD",
+        "freeformAddress": "Halvemaanstraat 30, 5651 BP Eindhoven",
+        "localName": "Eindhoven"
+      },
+      "position": {
+        "lat": 51.44974,
+        "lon": 5.44589
+      },
+      "viewport": {
+        "topLeftPoint": {
+          "lat": 51.45118,
+          "lon": 5.44358
+        },
+        "btmRightPoint": {
+          "lat": 51.4483,
+          "lon": 5.4482
+        }
+      },
+      "entryPoints": [
+        {
+          "type": "main",
+          "position": {
+            "lat": 51.44832,
+            "lon": 5.4455
+          }
+        }
+      ],
+      "dataSources": {
+        "poiDetails": [
+          {
+            "id": "Rm91cnNxdWFyZTo1ZTg3NjEwMGIyMjNkODAwMDg3N2JmMzg=",
+            "sourceName": "Foursquare"
+          }
+        ]
+      }
+    },

@@ -1,0 +1,23 @@
+// 3rd party Libraries
+@import '~breakpoint-sass/stylesheets/_breakpoint.scss';
+// Font Awesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+// Local Libraries
+@import "components/UI/General/vars";
+@import "components/UI/General/general";
+@import "components/UI/General/fonts";
+@import "components/UI/Card/Card";
+@import "components/UI/Card/CardHolder";
+@import "components/categories/categories";
+@import "components/UI/Language/Language";
+@import "components/UI/BottomDrop/BottomDrop";
+@import "components/UI/Poi/poi";
+@import "components/info_display/info_display";
+
+.App {
+  text-align: center;
+}

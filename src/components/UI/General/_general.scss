@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  // padding: 2% 2%;
+  // margin: -10px;
+  // background: $LightBlack;
+  // //   background: linear-gradient(0deg, $LightWhite 9%, $LightBlack 16%, $DarkWhite 32%);
+  // background: linear-gradient(
+  //   0deg,
+  //   rgba(215, 215, 215, 1) 6%,
+  //   rgba(140, 140, 140, 1) 18%,
+  //   rgba(163, 163, 163, 1) 46%
+  // );
+  // background-size: cover;
+  // background-attachment: fixed;
+  // background-repeat: no-repeat;
+  // background-position: center center;
+  background: $DarkBlack;
+
+  font-family: $font-primary;
+  font-size: 15px;
+}
+
+ion-content {
+  --ion-background-color: $DarkBlack;
+}
+
+.background-dark {
+  background: $DarkBlack !important;
+}
+
+h1,
+h2,
+h3 {
+  font-family: $font-heading;
+  line-height: 1;
+}
+
+h1 {
+  color: $Black;
+  text-align: center;
+  font-size: 30px;
+  margin: 10px 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: -3px;
+
+  @include breakpoint($breakpoint-m) {
+    font-size: 18px;
+    margin: 8px 0 !important;
+    letter-spacing: -1px;
+  }
+}
+
+h2 {
+  color: $Black;
+  font-size: 30px;
+  margin: 0 0 20px 0;
+  text-transform: capitalize;
+  letter-spacing: -1px;
+}
+
+h3 {
+  color: $Red;
+  font-size: 16px;
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+}
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+  display: block;
+}
+
+select, button {
+  font-family: $font-primary;
+  padding: 8px;
+  background: $DarkBlack;
+  border: 1px solid $LightWhite;
+  border-radius: 5px;
+  color: $LightWhite;
+}
+
+button:focus {
+  background: $LightBlack;
+}

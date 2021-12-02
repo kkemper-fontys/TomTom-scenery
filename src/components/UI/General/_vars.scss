@@ -1,0 +1,31 @@
+//General Colors
+$primary:	                        #1f344e;
+$secondary:	                        #00498e;
+$tertiary:                          #dfedfe;
+
+// TomTom Brand Colors
+// https://www.tomtom.com/en_gb/brandguide/color/
+$Red:                               #DF1B12;
+$DarkRed:                           #B1110E;
+$LightRed:                          #E94743;
+$White:                             #FFFFFF;
+$DarkWhite:                         #BEBEBE;
+$LightWhite:                        #E5E5E5;
+$Black:                             #000000;
+$DarkBlack:                         #4A4C4C;
+$LightBlack:                        #7A7E80;
+$Blue:                              #8DB3EB;
+$DarkBlue:                          #61adE0;
+$LightBlue:                         #BCDCF5;
+
+// TomTom Brand Fonts
+$font-primary:                      'nowayregular', sans-serif;
+$font-heading:                      'gothambold', sans-serif;
+
+$nav-breakpoint:                    (min-width: 1230px);
+
+$breakpoint-xs:                     (min-width: 480px);
+$breakpoint-s:                      (min-width: 576px);
+$breakpoint-m:                      (min-width: 640px);
+$breakpoint-l:                      (min-width: 992px);
+$breakpoint-xl:                     (min-width: 1200px);

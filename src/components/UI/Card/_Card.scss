@@ -1,0 +1,56 @@
+.card {
+  position: relative;
+  border-radius: 10px;
+  background: $LightBlack;
+  //padding: 10px;
+  width: 100%;
+
+  &-image {
+    padding: 0 !important;
+  }
+
+  img {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+  }
+}
+
+.cat_clicked {
+  background: green !important;
+}
+
+.card_clicked {
+  background: greenyellow !important;
+}
+
+.gradient {
+  display: flex;
+  width: 100%;
+
+  @include breakpoint($breakpoint-m){
+    width: calc(25% - 20.1px);
+  }
+
+  margin: 8px;
+  position: relative;
+  box-sizing: border-box;
+
+  $border: 3px;
+  background-clip: padding-box; /* !importanté */
+  border: solid $border transparent; /* !importanté */
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -$border; /* !importanté */
+    border-radius: inherit; /* !importanté */
+    background: linear-gradient(to right, $DarkWhite, $LightWhite, $DarkWhite);
+  }
+}

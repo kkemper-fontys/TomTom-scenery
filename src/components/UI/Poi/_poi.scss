@@ -1,0 +1,27 @@
+.poi {
+  position: absolute;
+  width: 30px;
+  height: 24px;
+  z-index: 9999;
+  img {
+    filter: invert(14%) sepia(65%) saturate(7327%) hue-rotate(8deg)
+      brightness(98%) contrast(120%);
+  }
+}
+
+.center {
+  position: absolute;
+  width: 30px;
+  top: calc(50% - 24px);
+  left: calc(50% - 15px);
+  height: 24px;
+  z-index: 9999;
+  img {
+    filter: invert(14%) sepia(65%) saturate(7327%) hue-rotate(8deg)
+      brightness(98%) contrast(120%);
+  }
+}
+
+.map {
+  position: absolute;
+}
