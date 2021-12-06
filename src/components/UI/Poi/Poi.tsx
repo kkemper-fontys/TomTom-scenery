@@ -16,7 +16,7 @@ const Poi = (props) => {
   const yItem = ((latItem - minLat) / (maxLat - minLat)) * screenHeight;
 
   const clickHandler = async () => {
-    alert("props.poiName");
+    alert(props.poiName);
     const deviceid = await getDeviceInfo();
 
     try {
