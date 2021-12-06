@@ -1,4 +1,5 @@
 import React from "react";
+import { getDeviceInfo } from "../../../store/deviceinfo";
 
 const Poi = (props) => {
   const screenWidth = window.innerWidth; // check the used width by the browser
@@ -14,11 +15,23 @@ const Poi = (props) => {
   const xItem = ((lonItem - minLon) / (maxLon - minLon)) * screenWidth;
   const yItem = ((latItem - minLat) / (maxLat - minLat)) * screenHeight;
 
-  const clickHandler = () => {
-    alert(props.poiName);
+  const clickHandler = async () => {
+    alert("props.poiName");
+    const deviceid = await getDeviceInfo();
+
+    try {
+      const apiCall =
+        "https://api.keeskemper.nl/key/updateUserCategory/" + deviceid + "/" + props.category_id; // TODO tijd instellen
+      const response = await fetch(apiCall); // API call -> wait for response
+
+      if (!response.ok) {
+        throw new Error("Something went wrong here");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
-  // console.log(xItem + " - " + yItem)
   return (
     <div onClick={clickHandler}
       className="poi"
@@ -29,7 +42,7 @@ const Poi = (props) => {
     >
       <img src={props.image_url} />
       <div className="poi-title">{props.poiName}</div>
-      <div className="poi-address">{props.poiAddress}</div>
+      <div className="poi-type">{props.poiCategory}</div>
     </div>
   );
 };

@@ -43,6 +43,8 @@ const PoiHolder = (props) => {
             maxLon={maxLon}
             maxLat={maxLat}
             poiName={data.name}
+            poiCategory={data.category_name}
+            category_id={data.category_id}
             image_url={data.category_link_url}
           />
         );
