@@ -3,6 +3,7 @@ import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/Home";
 import { KeepAwake } from '@capacitor-community/keep-awake';
+import { Insomnia } from '@ionic-native/insomnia';
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -29,6 +30,12 @@ const App: React.FC = () => {
   const keepAwake = async () => {
     await KeepAwake.keepAwake();
   };
+
+  const insom = async () => {
+    await Insomnia.keepAwake();
+  };
+  insom();
+  keepAwake();
   
   return (
     <IonApp>
