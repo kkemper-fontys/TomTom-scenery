@@ -3,6 +3,7 @@
 import { IonIcon } from "@ionic/react";
 import { navigate } from "ionicons/icons";
 import { useEffect, useState } from "react";
+import Poi from "../Poi/Poi";
 
 // import Card from "./components/UI/Card/Card";                                                                      IK MOET DE BREEDTE EN HOOGTE VAN DE MAP IN PIXELS DOEN!!
 // import CardHolder from "./components/UI/Card/CardHolder";
@@ -103,13 +104,9 @@ const Kaart = (props) => {
           <IonIcon icon={navigate} style={{"width":"30px", "height":"30px", "color":"red", "transform":`rotate(${props.alpha-45}deg)`}} />
         </div>
         <div className="info_display-alpha">{props.alpha}</div>
-        <div
-          className="poi"
-          style={{ top: yItem + "px", left: xItem - 15 + "px" }}
-        >
-          <img src="images/map-marker-alt.svg" alt="this is the first poi" />
-        </div>
       </div>
+      <Poi longitude={5.4088423} latitude={51.5064033} minLon={minLon} minLat={minLat} maxLon={maxLon} maxLat={maxLat} />
+      <Poi longitude={5.4028423} latitude={51.5054033} minLon={minLon} minLat={minLat} maxLon={maxLon} maxLat={maxLat} />
     </div>
   );
 }

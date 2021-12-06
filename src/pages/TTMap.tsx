@@ -18,6 +18,7 @@ import Language from "../components/UI/Language/Language";
 import Kaart from "../components/UI/Kaart/Kaart";
 import { getDeviceInfo } from "../store/deviceinfo";
 import InfoDisplay from "../components/info_display/info_display";
+import Poi from "../components/UI/Poi/Poi";
 
 const TTMap: React.FC = () => {
   const [showAlert, setShowAlert] = useState(false);
