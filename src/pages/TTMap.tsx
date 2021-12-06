@@ -65,7 +65,7 @@ const TTMap: React.FC = () => {
           throw new Error("Something went wrong here");
         }
       } catch (error) {
-        console.log(error.message);
+        //console.log(error.message);
       }
     }
   };

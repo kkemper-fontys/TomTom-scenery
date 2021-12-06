@@ -13,7 +13,25 @@ const Poi = (props) => {
 
   const xItem = ((lonItem - minLon) / (maxLon - minLon)) * screenWidth;
   const yItem = ((latItem - minLat) / (maxLat - minLat)) * screenHeight;
-  return <div className="poi" style={{ top: "calc(" + yItem + "px - 200px)", left: "calc(" + xItem + "px - 65px)" }}>Point of Interest</div>;
+
+  const clickHandler = () => {
+    alert(props.poiName);
+  }
+
+  // console.log(xItem + " - " + yItem)
+  return (
+    <div onClick={clickHandler}
+      className="poi"
+      style={{
+        top: "calc(" + yItem + "px - 200px)",
+        left: "calc(" + xItem + "px - 65px)",
+      }}
+    >
+      <img src={props.image_url} />
+      <div className="poi-title">{props.poiName}</div>
+      <div className="poi-address">{props.poiAddress}</div>
+    </div>
+  );
 };
 
 export default Poi;

@@ -11,12 +11,17 @@
   min-height: 180px;
   background: #ffffff;
   border-radius: 10px;
-  padding: 10px;
+  padding: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  // img {
-  //   filter: invert(14%) sepia(65%) saturate(7327%) hue-rotate(8deg)
-  //     brightness(98%) contrast(120%);
-  // }
+  text-align: center;
+  img {
+    margin-bottom: 10px;
+  }
+
+  &-title {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 }
 
 .poi:after {

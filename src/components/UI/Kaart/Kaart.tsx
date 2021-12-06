@@ -4,6 +4,7 @@ import { IonIcon } from "@ionic/react";
 import { navigate } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import Poi from "../Poi/Poi";
+import PoiHolder from "../Poi/PoiHolder";
 
 // import Card from "./components/UI/Card/Card";                                                                      IK MOET DE BREEDTE EN HOOGTE VAN DE MAP IN PIXELS DOEN!!
 // import CardHolder from "./components/UI/Card/CardHolder";
@@ -89,7 +90,7 @@ const Kaart = (props) => {
     "&view=" +
     view;
 
-  console.log(calculatedBboxSource);
+  // console.log(calculatedBboxSource);
 
   return (
     <div>
@@ -105,8 +106,7 @@ const Kaart = (props) => {
         </div>
         <div className="info_display-alpha">{props.alpha}</div>
       </div>
-      <Poi longitude={5.4088423} latitude={51.5064033} minLon={minLon} minLat={minLat} maxLon={maxLon} maxLat={maxLat} />
-      <Poi longitude={5.4028423} latitude={51.5054033} minLon={minLon} minLat={minLat} maxLon={maxLon} maxLat={maxLat} />
+      <PoiHolder minLon={minLon} minLat={minLat} maxLon={maxLon} maxLat={maxLat} />
     </div>
   );
 }
