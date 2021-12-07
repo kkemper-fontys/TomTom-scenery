@@ -17,17 +17,12 @@ import { useState } from "react";
 import Language from "../components/UI/Language/Language";
 import Kaart from "../components/UI/Kaart/Kaart";
 import { getDeviceInfo } from "../store/deviceinfo";
-import InfoDisplay from "../components/info_display/info_display";
-import Poi from "../components/UI/Poi/Poi";
 
 const TTMap: React.FC = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [longitude, setLongitude] = useState(1);
   const [latitude, setLatitude] = useState(1);
   const [deviceID, setDeviceID] = useState("");
-  const [showAlpha, setShowAlpha] = useState("");
-  const [showBeta, setShowBeta] = useState("");
-  const [showGamma, setShowGamma] = useState("");
   const [numAlpha, setNumAlpha] = useState(0);
 
   function getPermission() {
@@ -72,9 +67,9 @@ const TTMap: React.FC = () => {
 
   async function getCurrentPosition() {
     // const perm = await Geolocation.requestPermissions();
-
+    console.log(Date.now());
     await Geolocation.watchPosition(
-      { timeout: 500, enableHighAccuracy: true },
+      { timeout: 5000, enableHighAccuracy: true },
       (result) => {
         if (result && result.coords) {
           setLongitude(result.coords.longitude);
@@ -84,9 +79,12 @@ const TTMap: React.FC = () => {
     );
     await setUserLocation();
   }
-  getPermission();
-  getCurrentPosition();
-  logDeviceId();
+
+  useEffect(() => {
+    getPermission();
+    getCurrentPosition();
+    logDeviceId();
+  }, []);
 
   Motion.addListener("orientation", (res) => {
     setTimeout(() => {

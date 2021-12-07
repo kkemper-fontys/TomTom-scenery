@@ -1,17 +1,13 @@
 import React from "react";
 import { IonContent, IonPage } from "@ionic/react";
 import Categories from "../components/categories/categories";
-// import { Insomnia } from '@ionic-native/insomnia/ngx';
 
 import { Device } from "@capacitor/device";
 
-import { useState } from "react";
 import { getDeviceInfo, setDeviceInfo } from "../store/deviceinfo";
 import { useHistory } from "react-router";
 
 const Home: React.FC = () => {
-  const [longitude, setLongitude] = useState(1);
-  const [latitude, setLatitude] = useState(1);
   const history = useHistory();
 
   const logDeviceId = async () => {
@@ -19,10 +15,7 @@ const Home: React.FC = () => {
     setDeviceInfo(info.uuid);
     checkDeviceId();
   };
-
-  // const keepawake = new Insomnia();
-  // keepawake.keepAwake();
-
+  
   const checkDeviceId = async () => {
     try {
       const device_id = await getDeviceInfo();
