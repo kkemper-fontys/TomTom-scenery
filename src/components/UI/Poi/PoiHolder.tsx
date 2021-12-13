@@ -14,7 +14,7 @@ const PoiHolder = (props) => {
 
     try {
       const apiCall =
-        "https://api.keeskemper.nl/key/poi/" + deviceid + "/1627941600"; // TODO tijd instellen
+        "https://api.keeskemper.nl/key/poi/read/" + deviceid + "/1627941600"; // TODO tijd instellen
       const response = await fetch(apiCall); // API call -> wait for response
 
       if (!response.ok) {
