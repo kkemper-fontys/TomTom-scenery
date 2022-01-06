@@ -9,65 +9,49 @@ const PoiHolder = (props) => {
   const maxLon = props.maxLon;
   const maxLat = props.maxLat;
 
-
   // Deze functie gaat gebruik maken van de localhost server van Ronald
   const getPoiByLocal = async () => {
     const deviceid = await getDeviceInfo();
+    if (props.longitude !== 1 && props.latitude !== 1) {
+      try {
+        const apiCall =
+          "http://backend.keeskemper.nl:8080/getpoi/restaurant/" +
+          props.latitude +
+          "/" +
+          props.longitude;
+        console.log(apiCall);
+        const response = await fetch(apiCall, { mode: "cors" }); // API call -> wait for response
 
-    try {
-      const apiCall =
-        "https://backend.keeskemper.nl:8080/key/poi/read/" + deviceid + "/1627941600"; // TODO tijd instellen
-      const response = await fetch(apiCall); // API call -> wait for response
+        if (!response.ok) {
+          throw new Error("Can't get PoI data");
+        }
 
-      if (!response.ok) {
-        throw new Error("Something went wrong here");
+        const data = await response.json();
+        console.log(data);
+        setFetchedPois([data]);
+      } catch (error) {
+        console.log(error.message);
       }
-
-      const data = await response.json();
-      setFetchedPois(data.poi);
-
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
-  const getPoi = async () => {
-    const deviceid = await getDeviceInfo();
-
-    try {
-      const apiCall =
-        "https://api.keeskemper.nl/key/poi/read/" + deviceid + "/1627941600"; // TODO tijd instellen
-      const response = await fetch(apiCall); // API call -> wait for response
-
-      if (!response.ok) {
-        throw new Error("Something went wrong here");
-      }
-
-      const data = await response.json();
-      setFetchedPois(data.poi);
-
-    } catch (error) {
-      console.log(error.message);
     }
   };
-  getPoi();
+  getPoiByLocal();
 
   return (
     <div>
       {fetchedPois.map((data, key) => {
         return (
           <Poi
-            key={data.id}
-            longitude={data.longitude}
-            latitude={data.latitude}
+            key={data.name + Math.random()}
+            longitude={data.lon}
+            latitude={data.lat}
             minLon={minLon}
             minLat={minLat}
             maxLon={maxLon}
             maxLat={maxLat}
             poiName={data.name}
-            poiCategory={data.category_name}
-            category_id={data.category_id}
-            image_url={data.category_link_url}
+            poiCategory="restaurant"
+            category_id={data.categoryId}
+            image_url=""
           />
         );
       })}

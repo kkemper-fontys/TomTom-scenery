@@ -34,7 +34,19 @@ export const getCategoryById = async (catID) => {
   }
 };
 
-export const setStorageCategories = async (catID: number) => {
+export const getStorageCategoriesName = async () => {
+  const categories = await Storage.get({
+    key: "catName",
+  });
+  if (!categories.value) {
+    return { catNameArray: [] };
+  } else {
+    const json = JSON.parse(categories.value);
+    return json;
+  }
+};
+
+export const setStorageCategories = async (catID: number, catName: string) => {
   const { categoryArray } = await getStorageCategories();
   const tempArr = [...categoryArray];
   tempArr.push(catID);
@@ -43,9 +55,17 @@ export const setStorageCategories = async (catID: number) => {
     key: "categories",
     value: JSON.stringify({ categoryArray: tempArr }),
   });
+
+  const { catNameArray } = await getStorageCategoriesName();
+  const tempArray = [...catNameArray];
+  tempArray.push(catName);
+  await Storage.set({
+    key: "catName",
+    value: JSON.stringify({ catNameArray: tempArray }),
+  });
 };
 
-export const removeStorageCategories = async (catID: number) => {
+export const removeStorageCategories = async (catID: number, catName: string) => {
   const { categoryArray } = await getStorageCategories();
   const tempArr = [...categoryArray];
   const newArray = tempArr.filter((id) => id != catID);
@@ -53,6 +73,14 @@ export const removeStorageCategories = async (catID: number) => {
   await Storage.set({
     key: "categories",
     value: JSON.stringify({ categoryArray: newArray }),
+  });
+
+  const { catNameArray } = await getStorageCategoriesName();
+  const tempArray = [...catNameArray]; 
+  const newNameArray = tempArray.filter((originalName) => originalName != catName);
+  await Storage.set({
+    key: "catName",
+    value: JSON.stringify({ catNameArray: newNameArray }),
   });
 };
 
@@ -76,4 +104,4 @@ export const setSubCat = (subType) => {
 
 export const setSubCatSelected = () => {
   subCatSelected = true;
-}
+};

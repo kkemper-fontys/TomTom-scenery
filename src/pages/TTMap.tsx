@@ -67,7 +67,7 @@ const TTMap: React.FC = () => {
 
   async function getCurrentPosition() {
     // const perm = await Geolocation.requestPermissions();
-    console.log(Date.now());
+    // console.log(Date.now());
     // await Geolocation.watchPosition(
     //   { timeout: 5000, enableHighAccuracy: true },
     //   (result) => {
@@ -87,7 +87,7 @@ const TTMap: React.FC = () => {
     );
 
     await setUserLocation();
-    // setTimeout(getCurrentPosition, 3000);
+    setTimeout(getCurrentPosition, 3000);
   }
 
   useEffect(() => {

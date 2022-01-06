@@ -22,10 +22,10 @@ const Card: React.FC<any> = (props) => {
 
   const categoryClickHandler = async () => {
     if (!clicked) {
-      setStorageCategories(props.tomtom_id);
+      setStorageCategories(props.tomtom_id, props.tomtom_name);
       setClicked(true);
     } else {
-      removeStorageCategories(props.tomtom_id);
+      removeStorageCategories(props.tomtom_id, props.tomtom_name);
       setClicked(false);
     }
     setTimeout(() => {

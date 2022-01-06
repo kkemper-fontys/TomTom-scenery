@@ -102,11 +102,11 @@ const Kaart = (props) => {
           alt="this is the map"
         />
         <div className="center">
-          <IonIcon icon={navigate} style={{"width":"30px", "height":"30px", "color":"red", "transform":`rotate(${props.alpha-45}deg)`}} />
+          <IonIcon icon={navigate} style={{"width":"30px", "height":"30px", "color":"red", "transform":`rotate(${props.alpha-45}deg)`, "zIndex":"10000"}} />
         </div>
         <div className="info_display-alpha">{props.alpha}</div>
       </div>
-      <PoiHolder minLon={minLon} minLat={minLat} maxLon={maxLon} maxLat={maxLat} />
+      <PoiHolder minLon={minLon} minLat={minLat} maxLon={maxLon} maxLat={maxLat} longitude={props.longitude} latitude={props.latitude}/>
     </div>
   );
 }

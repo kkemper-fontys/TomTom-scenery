@@ -99,7 +99,7 @@ const Categories = () => {
     content = (
       <CardHolder>
         {categories.map((data: Category) => (
-          <Card key={data.id} tomtom_id={data.tomtom_id} onClick={clickHandler}>
+          <Card key={data.id} tomtom_id={data.tomtom_id} tomtom_name={data['nl_nl']} onClick={clickHandler}>
             <div className="frame">
               <img src={data.image_url} alt="this is the shizzle" />
             </div>
