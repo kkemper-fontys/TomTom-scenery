@@ -68,8 +68,16 @@ const TTMap: React.FC = () => {
   async function getCurrentPosition() {
     // const perm = await Geolocation.requestPermissions();
     console.log(Date.now());
-    await Geolocation.watchPosition(
-      { timeout: 5000, enableHighAccuracy: true },
+    // await Geolocation.watchPosition(
+    //   { timeout: 5000, enableHighAccuracy: true },
+    //   (result) => {
+    //     if (result && result.coords) {
+    //       setLongitude(result.coords.longitude);
+    //       setLatitude(result.coords.latitude);
+    //     }
+    //   }
+    // );
+    await Geolocation.getCurrentPosition({ enableHighAccuracy: true }).then(
       (result) => {
         if (result && result.coords) {
           setLongitude(result.coords.longitude);
@@ -77,7 +85,9 @@ const TTMap: React.FC = () => {
         }
       }
     );
+
     await setUserLocation();
+    // setTimeout(getCurrentPosition, 3000);
   }
 
   useEffect(() => {

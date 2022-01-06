@@ -9,6 +9,28 @@ const PoiHolder = (props) => {
   const maxLon = props.maxLon;
   const maxLat = props.maxLat;
 
+
+  // Deze functie gaat gebruik maken van de localhost server van Ronald
+  const getPoiByLocal = async () => {
+    const deviceid = await getDeviceInfo();
+
+    try {
+      const apiCall =
+        "https://backend.keeskemper.nl:8080/key/poi/read/" + deviceid + "/1627941600"; // TODO tijd instellen
+      const response = await fetch(apiCall); // API call -> wait for response
+
+      if (!response.ok) {
+        throw new Error("Something went wrong here");
+      }
+
+      const data = await response.json();
+      setFetchedPois(data.poi);
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   const getPoi = async () => {
     const deviceid = await getDeviceInfo();
 
