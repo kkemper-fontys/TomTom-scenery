@@ -1,6 +1,7 @@
 # About the project
 
 This App was created for TomTom within a Fontys Hogescholen project. TomTom-Scenery is an app to find your favorite kind of landmarks or points of interest and show these on a dynamic map.
+
 The app will store and update your favorite categories to always show accurate points of interest to it's user
 
 ## Build with
@@ -39,9 +40,11 @@ npm start
 
 ## License
 Created and distributed under the license of TomTom and the TomTom-Developer API.
+
 Check the [TomTom-Developer API](https://developer.tomtom.com) for more information.
 
 
 ## Contact
 Creator of the TomTom-Scenery Front-End:
+
 Kees Kemper - [k.kemper@student.fontys.nl](mailto:k.kemper@student.fontys.nl)
