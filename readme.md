@@ -45,4 +45,5 @@ Check the [TomTom-Developer API](https://developer.tomtom.com) for more informat
 
 ## Contact
 Creator of the TomTom-Scenery Front-End:
+
 Kees Kemper - [k.kemper@student.fontys.nl](mailto:k.kemper@student.fontys.nl)
