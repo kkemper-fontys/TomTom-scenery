@@ -40,11 +40,9 @@ npm start
 
 ## License
 Created and distributed under the license of TomTom and the TomTom-Developer API.
-
 Check the [TomTom-Developer API](https://developer.tomtom.com) for more information.
 
 
 ## Contact
 Creator of the TomTom-Scenery Front-End:
-
 Kees Kemper - [k.kemper@student.fontys.nl](mailto:k.kemper@student.fontys.nl)
