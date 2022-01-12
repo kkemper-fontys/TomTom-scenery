@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
-import { getApiCategories, getCategoryStorageLength, subCategory, subCatSelected } from "../../store/categories";
+import {
+  getApiCategories,
+  getCategoryStorageLength,
+  subCategory,
+  subCatSelected,
+} from "../../store/categories";
 import { getLanguage } from "../../store/language";
 import Card from "../UI/Card/Card";
 import CardHolder from "../UI/Card/CardHolder";
 import Language from "../UI/Language/Language";
-import BottomDrop from '../UI/BottomDrop/BottomDrop';
+import BottomDrop from "../UI/BottomDrop/BottomDrop";
 import { useHistory } from "react-router";
 import { getDeviceInfo } from "../../store/deviceinfo";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 
+// setting the interface of a Category
 interface Category {
   key: number;
   id: number;
@@ -18,6 +24,7 @@ interface Category {
   image_url: string;
 }
 
+// this is the function for the category page
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,23 +34,30 @@ const Categories = () => {
   const history = useHistory();
   const location = useLocation();
 
+  // try to get all the categories from the database
   const fetchCatHandler = async () => {
     try {
       let apiCall;
-      if(subCategory){
+      // check to see if we're going for categories or subcategories
+      if (subCategory) {
         const listCategories = await getApiCategories();
-        apiCall = "https://api.keeskemper.nl/key/search/subcategories/"+listCategories;
+        apiCall =
+          "https://api.keeskemper.nl/key/search/subcategories/" +
+          listCategories;
       } else {
-         apiCall = "https://api.keeskemper.nl/key/search/categories/";
+        apiCall = "https://api.keeskemper.nl/key/search/categories/";
       }
       const response = await fetch(apiCall); // API call -> wait for response
 
+      // is it a good request?
       if (!response.ok) {
-        throw new Error("Something went wrong here");
+        throw new Error("No data to show.");
       }
 
-      const data = await response.json(); // return JSON Data -> wait for data
+      // return JSON Data -> wait for data
+      const data = await response.json();
 
+      // set the data to match the category interface
       const transformedCategories = data.categories.map(
         (catData: Category) => ({
           key: catData.id,
@@ -54,52 +68,79 @@ const Categories = () => {
           image_url: catData.image_url,
         })
       );
+
+      // get the default language
       const tempLanguage = await getLanguage();
       setLanguage(tempLanguage);
       setCategories(transformedCategories);
     } catch (error) {
-      setError(error.message);
+      setError("Error getting category data: " + error.message);
     }
     setIsLoading(false);
   };
 
+  // set the number of clicked (sub)categories
   const clickHandler = async () => {
     const { length } = await getCategoryStorageLength();
     setTempL(length);
     fetchCatHandler();
   };
 
+  // when the previous button is clicked
   const prevBtnClickHandler = () => {
     fetchCatHandler();
-  }
+  };
 
+  // when the next button is clicked
   const nextBtnClickHandler = async () => {
-    if(subCatSelected){
-      const deviceid = await getDeviceInfo();
-      const categories = await getApiCategories();
-      const apiCall = "https://api.keeskemper.nl/key/create/user/"+deviceid+"/categories/"+categories;
-      const response = await fetch(apiCall); // API call -> wait for response
+    // check to see if we are already in the subcategory section
+    if (subCatSelected) {
+      try {
+        const deviceid = await getDeviceInfo();
+        const categories = await getApiCategories();
 
-      if (!response.ok) {
-        throw new Error("Something went wrong here");
+        // create a new user using the API backend
+        const apiCall =
+          "https://api.keeskemper.nl/key/create/user/" +
+          deviceid +
+          "/categories/" +
+          categories;
+        const response = await fetch(apiCall); // API call -> wait for response
+
+        // is it a good request?
+        if (!response.ok) {
+          throw new Error("Something went wrong in the API");
+        }
+
+        // new user created! -> Go to the map
+        history.push("/TTMap");
+      } catch (error) {
+        setError("Error creating new user: " + error.message);
       }
-
-      history.push("/TTMap");
     } else {
       fetchCatHandler();
     }
-  }
+  };
 
+  // changed the language, update the categorylist
   const bottomDropClickHandler = () => {
     fetchCatHandler();
-  }
+  };
 
-  let content = <p>Found no categories.</p>;
+  // set the default content to show
+  let content = <p>No categories to show.</p>;
+
+  // and change the content to show when we do find categories
   if (categories.length > 0) {
     content = (
       <CardHolder>
         {categories.map((data: Category) => (
-          <Card key={data.id} tomtom_id={data.tomtom_id} tomtom_name={data['nl_nl']} onClick={clickHandler}>
+          <Card
+            key={data.id}
+            tomtom_id={data.tomtom_id}
+            tomtom_name={data["nl_nl"]}
+            onClick={clickHandler}
+          >
             <div className="frame">
               <img src={data.image_url} alt="this is the shizzle" />
             </div>
@@ -109,23 +150,35 @@ const Categories = () => {
       </CardHolder>
     );
   }
+
+  // set the content to the error if we experience one
   if (error) {
     content = <p>{error}</p>;
   }
+
+  // set the content to loading while we collect the category data
   if (isLoading) {
     content = <p>Loading...</p>;
   }
 
+  // when we first enter the page, try to get the category data
   useEffect(() => {
     fetchCatHandler();
   }, []);
 
+  // this is the whole categories page
   return (
     <div className="categories">
       <section className="categories-header">
         <img src="images/logo_tomtom.png" alt="logo employer" />
-        <Language onClick={bottomDropClickHandler}/>
-        {tempL > 0 && location.pathname != "/TTMap" && <BottomDrop selected={tempL} onNextClick={nextBtnClickHandler} onPrevClick={prevBtnClickHandler}/>}
+        <Language onClick={bottomDropClickHandler} />
+        {tempL > 0 && location.pathname != "/TTMap" && (
+          <BottomDrop
+            selected={tempL}
+            onNextClick={nextBtnClickHandler}
+            onPrevClick={prevBtnClickHandler}
+          />
+        )}
         <div>
           <div>
             <i className="fas fa-search"></i>

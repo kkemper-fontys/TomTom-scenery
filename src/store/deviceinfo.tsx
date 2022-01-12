@@ -1,6 +1,6 @@
 import { Storage } from "@capacitor/storage";
-import { time, timeStamp } from "console";
 
+// store the device id in the local storage
 export const setDeviceInfo = async (deviceid) => {
   await Storage.set({
     key: "deviceid",
@@ -8,6 +8,7 @@ export const setDeviceInfo = async (deviceid) => {
   });
 };
 
+// this is a check to see if we can already update the users location in the local storage
 export const doNextUpdate = async (timestamp) => {
   const updateInterval = 1000 //milliseconden
 
@@ -18,14 +19,12 @@ export const doNextUpdate = async (timestamp) => {
   if(+lastUpdateTimeStamp.value > 0){
 
     if(+lastUpdateTimeStamp.value <= (timestamp - updateInterval)){
-      //console.log(lastUpdateTimeStamp.value + " - " + timestamp + " -> true");
       await Storage.set({
         key: "lastUpdate",
         value: timestamp,
       });
       return true;
     } else {
-      //console.log(lastUpdateTimeStamp.value + " - " + timestamp + " -> false");
       return false;
     }
   } else {
@@ -33,16 +32,17 @@ export const doNextUpdate = async (timestamp) => {
       key: "lastUpdate",
       value: timestamp,
     });
-    //console.log(lastUpdateTimeStamp.value + " - " + timestamp + " -> true");
     return true;
   }
 }
 
+// set the users location by longitude and latitude in the local storage
 export const setLocation = async (longitude, latitude) => {
   await setLongitude(longitude);
   await setLatitude(latitude);
 };
 
+// check to see if the users have moved (android app is pretty accurate)
 export const checkChangedLocation = async (longitude, latitude) => {
   const storageLongitude = await Storage.get({
     key: "longitude",
@@ -57,6 +57,7 @@ export const checkChangedLocation = async (longitude, latitude) => {
   }
 };
 
+// set the users longitude in the local storage
 const setLongitude = async (longitude) => {
   await Storage.set({
     key: "longitude",
@@ -64,6 +65,8 @@ const setLongitude = async (longitude) => {
   });
 };
 
+
+// set the users latitude in the local storage
 const setLatitude = async (latitude) => {
   await Storage.set({
     key: "latitude",
@@ -71,6 +74,7 @@ const setLatitude = async (latitude) => {
   });
 };
 
+// give the user device id back to the frontend
 export const getDeviceInfo = async () => {
   const deviceid = await Storage.get({
     key: "deviceid",

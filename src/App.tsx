@@ -25,11 +25,13 @@ import "./theme/variables.css";
 import "./App.scss";
 import TTMap from "./pages/TTMap";
 
+// this creates the entire app
 const App: React.FC = () => {
   const keepAwake = async () => {
     await KeepAwake.keepAwake();
   };
 
+  // dont turn of the device screen
   keepAwake();
   
   return (

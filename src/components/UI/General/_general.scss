@@ -1,3 +1,4 @@
+// general styling used in the entire app
 * {
   margin: 0;
   padding: 0;
@@ -11,20 +12,6 @@ body {
 }
 
 body {
-  // padding: 2% 2%;
-  // margin: -10px;
-  // background: $LightBlack;
-  // //   background: linear-gradient(0deg, $LightWhite 9%, $LightBlack 16%, $DarkWhite 32%);
-  // background: linear-gradient(
-  //   0deg,
-  //   rgba(215, 215, 215, 1) 6%,
-  //   rgba(140, 140, 140, 1) 18%,
-  //   rgba(163, 163, 163, 1) 46%
-  // );
-  // background-size: cover;
-  // background-attachment: fixed;
-  // background-repeat: no-repeat;
-  // background-position: center center;
   background: $DarkBlack;
 
   font-family: $font-primary;

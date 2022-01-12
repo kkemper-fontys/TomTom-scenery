@@ -10,7 +10,6 @@ import {
 
 import { alert } from "ionicons/icons";
 import { Geolocation } from "@capacitor/geolocation";
-import { Device } from "@capacitor/device";
 import { Motion } from "@capacitor/motion";
 
 import { useState } from "react";
@@ -18,33 +17,37 @@ import Language from "../components/UI/Language/Language";
 import Kaart from "../components/UI/Kaart/Kaart";
 import { getDeviceInfo } from "../store/deviceinfo";
 
+// this function will create the map on the screen
 const TTMap: React.FC = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [longitude, setLongitude] = useState(1);
   const [latitude, setLatitude] = useState(1);
-  const [deviceID, setDeviceID] = useState("");
   const [numAlpha, setNumAlpha] = useState(0);
 
+  // check to see if the user already gave permission to use his location
   function getPermission() {
+    // check every second if permission is already given
     setTimeout(() => {
       Geolocation.checkPermissions()
         .then((result) => {
+          // permission granted!
+          console.log("Permission granted!");
           return;
         })
         .catch((error) => {
+          // no permission yet, request permission
           Geolocation.requestPermissions();
+          console.log("Error getting permission: " + error.message);
           getPermission();
         });
     }, 1000);
   }
 
-  const logDeviceId = async () => {
-    const info = await Device.getId();
-    setDeviceID(info.uuid);
-  };
-
+  // update the users position in the database (overwrite)
   const setUserLocation = async () => {
+    // get the localy stored device id
     const deviceid = await getDeviceInfo();
+    // check to see if we already have a valid location
     if (longitude > 1) {
       try {
         const apiCall =
@@ -54,58 +57,63 @@ const TTMap: React.FC = () => {
           longitude +
           "," +
           latitude;
-        const response = await fetch(apiCall); // API call -> wait for response
 
+        // API call -> wait for response
+        const response = await fetch(apiCall);
+
+        // is it a good request?
         if (!response.ok) {
-          throw new Error("Something went wrong here");
+          throw new Error("Can't update location data");
         }
       } catch (error) {
-        //console.log(error.message);
+        console.log(
+          "Error while updating users location data: " + error.message
+        );
       }
     }
   };
 
+  // get the users current position
   async function getCurrentPosition() {
-    // const perm = await Geolocation.requestPermissions();
-    // console.log(Date.now());
-    // await Geolocation.watchPosition(
-    //   { timeout: 5000, enableHighAccuracy: true },
-    //   (result) => {
-    //     if (result && result.coords) {
-    //       setLongitude(result.coords.longitude);
-    //       setLatitude(result.coords.latitude);
-    //     }
-    //   }
-    // );
-    await Geolocation.getCurrentPosition({ enableHighAccuracy: true }).then(
-      (result) => {
+    await Geolocation.getCurrentPosition({ enableHighAccuracy: true })
+      .then((result) => {
+        // we got a good position, store this locally
         if (result && result.coords) {
           setLongitude(result.coords.longitude);
           setLatitude(result.coords.latitude);
         }
-      }
-    );
+      })
+      .catch((error) => {
+        // can't get the users position
+        console.log("Error getting position: " + error.message);
+      });
 
+    // store the users position in the local storage
     await setUserLocation();
+
+    // get a new position in 3 seconds
     setTimeout(getCurrentPosition, 3000);
   }
 
+  // get the users permission to fetch his location data and fetch his location 
   useEffect(() => {
     getPermission();
     getCurrentPosition();
-    logDeviceId();
   }, []);
 
+  // get the users orientation and rotate the pointer on the map accordingly to it
   Motion.addListener("orientation", (res) => {
     setTimeout(() => {
       if (res.alpha) {
         setNumAlpha(Math.round(res.alpha - 45));
       }
-    }, 2000);
+    }, 3000);
   });
 
+  // this function does nothing here, but it used in Language.tsx
   const bottomDropClickHandler = () => {};
 
+  // this creates the map on the screen
   return (
     <IonPage>
       <IonContent fullscreen className="background-dark">

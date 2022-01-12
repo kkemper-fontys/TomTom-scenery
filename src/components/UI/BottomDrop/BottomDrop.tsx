@@ -1,8 +1,13 @@
 import ReactDOM from "react-dom";
 import { setSubCat, setSubCatSelected, subCategory, toggleCategorySet } from "../../../store/categories";
 
+// the bottomdrop is an overlay to show the buttons and how much (sub)categories the user selected
 const BottomDrop = (props) => {
+
+  // what to do when the next button is pressed
   const nextBtnHandler = () => {
+
+    // check to see if we already in the subcategory section
     if(!subCategory){
       setSubCat(true);
     } else {
@@ -11,12 +16,14 @@ const BottomDrop = (props) => {
     props.onNextClick();
   };
 
+  // what to do when the previous button is pressed (only visible when we are in the subcategory section)
   const prevBtnHandler = () => {
     setSubCat(false);
     props.onPrevClick();
   };
 
 
+  // this creates the overlay
   return ReactDOM.createPortal(
     <div className="bottomdrop">
       <div className="bottomdrop-selected"></div>

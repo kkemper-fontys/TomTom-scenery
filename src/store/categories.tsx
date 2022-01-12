@@ -4,6 +4,7 @@ export let categoryStorageLength = 0;
 export let subCategory = false;
 export let subCatSelected = false;
 
+// get the users favorite categories by id stored in the local storage 
 export const getStorageCategories = async () => {
   const categories = await Storage.get({
     key: "categories",
@@ -16,6 +17,7 @@ export const getStorageCategories = async () => {
   }
 };
 
+// get the users favorite categories by id stored in the local storage
 export const getApiCategories = async () => {
   const categories = await Storage.get({
     key: "categories",
@@ -24,6 +26,7 @@ export const getApiCategories = async () => {
   return string;
 };
 
+// check to see if a category is a users favorite category with an id
 export const getCategoryById = async (catID) => {
   const { categoryArray } = await getStorageCategories();
   const tempArr = [...categoryArray];
@@ -34,6 +37,7 @@ export const getCategoryById = async (catID) => {
   }
 };
 
+// get the users favorite categories by named stored in the local storage
 export const getStorageCategoriesName = async () => {
   const categories = await Storage.get({
     key: "catName",
@@ -46,6 +50,7 @@ export const getStorageCategoriesName = async () => {
   }
 };
 
+// add a category to the users favorite categories in the local storage by id
 export const setStorageCategories = async (catID: number, catName: string) => {
   const { categoryArray } = await getStorageCategories();
   const tempArr = [...categoryArray];
@@ -65,6 +70,7 @@ export const setStorageCategories = async (catID: number, catName: string) => {
   });
 };
 
+// remove a category to the users favorite categories in the local storage by id
 export const removeStorageCategories = async (catID: number, catName: string) => {
   const { categoryArray } = await getStorageCategories();
   const tempArr = [...categoryArray];
@@ -84,12 +90,14 @@ export const removeStorageCategories = async (catID: number, catName: string) =>
   });
 };
 
+// check how many favorite categories the user has
 export const getCategoryStorageLength = async () => {
   const { categoryArray } = await getStorageCategories();
   const tempArr = [...categoryArray];
   return { length: tempArr.length };
 };
 
+// change the to show category page from category to subcategory and vise versa
 export const toggleCategorySet = async () => {
   if (subCategory) {
     subCategory = false;
@@ -98,10 +106,12 @@ export const toggleCategorySet = async () => {
   }
 };
 
+// this variable is to let the frontend know if we want to show subcategories
 export const setSubCat = (subType) => {
   subCategory = subType;
 };
 
+// this variable is to let the frontend know we already selected subcategories
 export const setSubCatSelected = () => {
   subCatSelected = true;
 };

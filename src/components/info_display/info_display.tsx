@@ -1,3 +1,4 @@
+// this functions creates a console popup to debug our code without a debugconsole (in android app)
 const InfoDisplay = (props) => {
   return (
     <div className="info_display">

@@ -3,6 +3,7 @@ import { getStorageCategoriesName } from "../../../store/categories";
 import { getDeviceInfo } from "../../../store/deviceinfo";
 import Poi from "./Poi";
 
+// this function will create a holder to put all the Points of Interest in and get those Points of Interest from the backend API
 const PoiHolder = (props) => {
   const [fetchedPois, setFetchedPois] = useState([]);
   const minLon = props.minLon;
@@ -10,6 +11,7 @@ const PoiHolder = (props) => {
   const maxLon = props.maxLon;
   const maxLat = props.maxLat;
 
+  // make an API call get a Point of Interest from the backend by categoryname and the users current position
   const getPoiByCat = async (catName) => {
     try {
       const apiCall =
@@ -20,22 +22,25 @@ const PoiHolder = (props) => {
         "/" +
         props.longitude;
 
-      const response = await fetch(apiCall, { mode: "cors" }); // API call -> wait for response
-
+      // API call -> wait for response
+      const response = await fetch(apiCall, { mode: "cors" }); 
+      
+      // is it a good request?
       if (!response.ok) {
-        throw new Error("Can't get PoI data");
+        throw new Error("No JSON data returned.");
       }
 
       const data = await response.json();
-      console.log(data);
       setFetchedPois([data]);
     } catch (error) {
-      console.log(error.message);
+      console.log("Error getting PoI data: " + error.message);
     }
   };
-  // Deze functie gaat gebruik maken van de localhost server van Ronald
+
+  // this function is to get the users favorite categories from the local storage and request a Point of Interest from the backend
   const getPoiByLocal = async () => {
-    const deviceid = await getDeviceInfo();
+
+    // check to see if we already got a valid position of the user
     if (props.longitude !== 1 && props.latitude !== 1) {
       const categories = await getStorageCategoriesName();
       categories.catNameArray.map((value) => {
@@ -43,8 +48,20 @@ const PoiHolder = (props) => {
       });
     }
   };
+
   getPoiByLocal();
 
+  // dit moet nog veranderd worden!!!
+  // useEffect(() => {
+  //   console.log('test');
+  //   const interval = setInterval(() => {
+  //     console.log('refresh');
+  //     getPoiByLocal();
+  //   }, 3000)
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  // this will create the Point of Interest holder with the Points of Interest inside of it
   return (
     <div>
       {fetchedPois.map((data, key) => {
