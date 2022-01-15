@@ -49,7 +49,7 @@ const PoiHolder = (props) => {
     }
   };
 
-  getPoiByLocal();
+  //getPoiByLocal();
 
   // dit moet nog veranderd worden!!!
   // useEffect(() => {
