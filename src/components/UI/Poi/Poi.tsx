@@ -17,10 +17,14 @@ const Poi = (props) => {
   const xItem = ((lonItem - minLon) / (maxLon - minLon)) * screenWidth;
   const yItem = ((latItem - minLat) / (maxLat - minLat)) * screenHeight;
 
+  // console.log("x: " + xItem + " - y: "+yItem);
+  console.log("minLat: " + minLat + " - lat: " + latItem);
+  // console.log("("+lonItem+" - "+minLon+") / (" + maxLon + " - " + minLon + ") * " + screenWidth + " = " + xItem);
+
   // what to do if a Point of Interest is clicked
   const clickHandler = async () => {
 
-    alert(props.poiName); // normally this would go to the TomTom Go App, however we dont have this app
+    alert(props.poiName + "\n" + props.address); // normally this would go to the TomTom Go App, however we dont have this app
     const deviceid = await getDeviceInfo();
 
     // update the users favorite categories to show more of his favorite Points of Interest
@@ -46,7 +50,7 @@ const Poi = (props) => {
     <div onClick={clickHandler}
       className="poi"
       style={{
-        top: "calc(" + yItem + "px - 200px)",
+        top: "calc(" + yItem + "px - 140px)",
         left: "calc(" + xItem + "px - 65px)",
       }}
     >

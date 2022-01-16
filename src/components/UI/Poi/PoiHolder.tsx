@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getStorageCategoriesName } from "../../../store/categories";
 import { getDeviceInfo } from "../../../store/deviceinfo";
+import { setPois } from "../../../store/pois";
 import Poi from "./Poi";
 
 // this function will create a holder to put all the Points of Interest in and get those Points of Interest from the backend API
@@ -11,60 +12,57 @@ const PoiHolder = (props) => {
   const maxLon = props.maxLon;
   const maxLat = props.maxLat;
 
-  // make an API call get a Point of Interest from the backend by categoryname and the users current position
-  const getPoiByCat = async (catName) => {
-    try {
-      const apiCall =
-        "http://backend.keeskemper.nl:8080/getpoi/" +
-        encodeURIComponent(catName) +
-        "/" +
-        props.latitude +
-        "/" +
-        props.longitude;
-
-      // API call -> wait for response
-      const response = await fetch(apiCall, { mode: "cors" }); 
-      
-      // is it a good request?
-      if (!response.ok) {
-        throw new Error("No JSON data returned.");
-      }
-
-      const data = await response.json();
-      setFetchedPois([data]);
-    } catch (error) {
-      console.log("Error getting PoI data: " + error.message);
-    }
-  };
-
   // this function is to get the users favorite categories from the local storage and request a Point of Interest from the backend
   const getPoiByLocal = async () => {
-
     // check to see if we already got a valid position of the user
     if (props.longitude !== 1 && props.latitude !== 1) {
       const categories = await getStorageCategoriesName();
+      
+      let category_list = "";
       categories.catNameArray.map((value) => {
-        getPoiByCat(value);
+        // getPoiByCat(value);
+        if (category_list == "") {
+          category_list += encodeURIComponent(value);
+        } else {
+          category_list += "," + encodeURIComponent(value);
+        }
       });
+
+      try {
+        const apiCall =
+          "https://api.keeskemper.nl/key/getpoi/" +
+          category_list +
+          "/" +
+          props.latitude +
+          "/" +
+          props.longitude;
+
+        // API call -> wait for response
+        const response = await fetch(apiCall); 
+
+        // is it a good request?
+        if (!response.ok) {
+          throw new Error("No JSON data returned.");
+        }
+        const data = await response.json();
+        setFetchedPois(data);
+        
+      } catch (error) {
+        console.log("Error getting PoI data: " + error.message);
+      }
     }
   };
 
-  //getPoiByLocal();
+  useEffect(() => {
+    getPoiByLocal();
+  }, [props]);
 
-  // dit moet nog veranderd worden!!!
-  // useEffect(() => {
-  //   console.log('test');
-  //   const interval = setInterval(() => {
-  //     console.log('refresh');
-  //     getPoiByLocal();
-  //   }, 3000)
-  //   return () => clearInterval(interval);
-  // }, []);
+  getPoiByLocal();
 
   // this will create the Point of Interest holder with the Points of Interest inside of it
   return (
     <div>
-      {fetchedPois.map((data, key) => {
+      {fetchedPois.map((data) => {
         return (
           <Poi
             key={data.name + Math.random()}
@@ -75,8 +73,9 @@ const PoiHolder = (props) => {
             maxLon={maxLon}
             maxLat={maxLat}
             poiName={data.name}
-            poiCategory="restaurant"
+            poiCategory={data.categoryName}
             category_id={data.categoryId}
+            address={data.address}
             image_url=""
           />
         );

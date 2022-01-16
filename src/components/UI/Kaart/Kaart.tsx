@@ -6,7 +6,7 @@ import PoiHolder from "../Poi/PoiHolder";
 const Kaart = (props) => {
   const lonCenter = props.longitude; // the longitute of my center point of view
   const latCenter = props.latitude; // the lattitude of my center point of view
-  const mapLength = 1000; // the width of the map in meters
+  const mapLength = 2000; // the width of the map in meters
 
   const lonItem = 5.44589; // the longitude of the dummy target to show on the map (change this to json object in the future)
   const latItem = 51.44974; // the latitude of the dummy target to show on the map (change this to json object in the future)
@@ -31,7 +31,7 @@ const Kaart = (props) => {
 
   // set the variables we need to get a succesfull call of the TomTom API
   const prefix = "https://api.tomtom.com/map/1/staticimage?";
-  const key = "akRRoJXWg8BsEebGgXquaebxtD95DZ2d";
+  const key = "mgGRd3anQUAMF5tCNHsEiqZfEXzUMZFL";
   const zoom = "15";
   const center = "5.453,51.451";
   const format = "png";
